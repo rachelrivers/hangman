@@ -1,17 +1,9 @@
-// const wordBank = require("./word-bank.json");
-const prompt = require("readline-sync");
-const wordBankTest = ["monkey", "parrot"];
-
-//console.log("\nWelcome to Hangman!\nPress ctrl+c to stop\n");
-
 
 //defining 
 let wins = 0;
 let losses = 0;
 guessesLeft = 6;
 let wordProgress = []; 
-let falseflag;
-guessed = [];
 
 //pick a random word
 const randomWord =  wordBankTest[Math.floor(Math.random() * wordBankTest.length)];
@@ -23,12 +15,12 @@ for (let i = 0; i < randomWord.length; i++) {
 }
 
 const remainingLetters = randomWord.length; 
-const wordLetters = randomWord.split("");
 
 correctLetters = [];
 
 //the play loop
 while (remainingLetters > 0) {
+  falseFlag = false;
   
   //player progress here 
 
@@ -38,10 +30,10 @@ while (remainingLetters > 0) {
     console.log("Please enter a letter")
   }
   guess = guess.toLowerCase();
-  if (guess.length !== 1) {
+  if (guess.length !== 1 || !/[a-z]/.test(guess)) {
     console.log("Please enter a single letter.");
   } else if (correctLetters.includes(guess)) {
-    console.log("Letter has already been added.");
+    console.log("Letter has already been added. -1 life.");
     guessesLeft--;
   } else {
     //match guess
@@ -52,7 +44,7 @@ while (remainingLetters > 0) {
         remainingLetters--;
         correctLetters.push(guess);
       } 
-    } 
+    }
   }
   if (falseFlag == true) {
     console.log("Wrong");
@@ -69,8 +61,3 @@ while (remainingLetters > 0) {
 if (remainingLetters == 0) {
   console.log("good work. the correct answer was " + answerArray.join("") + randomWord);
 }
-
-//rounds/counter display 
-
-
-//actual hangman graphic
