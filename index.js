@@ -2,15 +2,14 @@
 const prompt = require("readline-sync");
 const wordBankTest = ["monkey", "parrot"];
 
-//console.log("\nWelcome to Hangman!\nPress ctrl+c to stop\n");
+console.log("\nWelcome to Hangman!\nPress ctrl+c to stop\n");
 
 
-//defining 
+//defining variables
 let wins = 0;
 let losses = 0;
 guessesLeft = 6;
 let wordProgress = []; 
-let falseflag;
 guessed = [];
 
 //pick a random word
@@ -28,9 +27,13 @@ const wordLetters = randomWord.split("");
 correctLetters = [];
 
 //the play loop
+
+
+
+
 while (remainingLetters > 0) {
   
-  //player progress here 
+//player progress here 
 
   //guess
   let guess = prompt.question("Please guess a letter: ");
@@ -41,20 +44,18 @@ while (remainingLetters > 0) {
   if (guess.length !== 1) {
     console.log("Please enter a single letter.");
   } else if (correctLetters.includes(guess)) {
-    console.log("Letter has already been added.");
-    guessesLeft--;
+    console.log("Letter has already been added, please");
   } else {
     //match guess
-    falseFlag = true;
     for (j = 0; j < randomWord.length; j++) {
       if (randomWord[j] === guess) {
-        answerArray[j] = guess; 
+        wordLetters[j] = guess; 
         remainingLetters--;
         correctLetters.push(guess);
       } 
     } 
   }
-  if (falseFlag == true) {
+  if (guess != wordLetters) {
     console.log("Wrong");
     guessesLeft--;
   }
@@ -65,6 +66,14 @@ while (remainingLetters > 0) {
   //end loop
 }
 
+// if (/[a-zA-Z]/.test(userInput)) {
+//   // Do something in here
+//   console.log("This is a letter");
+// } else if (/[^a-zA-Z]/.test(userInput)) {
+//   // Do something here
+//   console.log("This is NOT a letter");
+// }
+
 //win 
 if (remainingLetters == 0) {
   console.log("good work. the correct answer was " + answerArray.join("") + randomWord);
@@ -74,3 +83,24 @@ if (remainingLetters == 0) {
 
 
 //actual hangman graphic
+
+const hangGuy = () => {
+if (guessesLeft == 6) {
+  console.log("|"); 
+}
+if (guessesLeft == 5) {
+  console.log("| /n 0");
+}
+if (guessesLeft == 4) {
+  console.log("| /n0/n\|"); 
+}
+if (guessesLeft == 3) {
+  console.log("| /n0/n\|/");
+}
+if (guessesLeft == 2) {
+  console.log("| /n0/n \|/ /n /");
+}
+if (guessesLeft == 1) {
+  console.log("| /n 0 /n \|/ /n / \");
+}
+}; 
