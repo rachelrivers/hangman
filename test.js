@@ -37,18 +37,17 @@ while (remainingLetters > 0) {
     guessesLeft--;
   } else {
     //match guess
-    falseFlag = true;
-    for (j = 0; j < randomWord.length; j++) {
-      if (randomWord[j] === guess) {
-        answerArray[j] = guess; 
-        remainingLetters--;
-        correctLetters.push(guess);
+    splitWord.forEach((letter, position) => {
+
+      if (guess === letter) {
+        console.log("found", position); 
+        hiddenAnswer[position] = guess;
       } 
-    }
+      console.log(hiddenAnswer)
+      })
+      
   }
-  if (falseFlag == true) {
-    console.log("Wrong");
-    guessesLeft--;
+    //wrong guess
   }
   //game over
   if (guessesLeft < 1) {
