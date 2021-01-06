@@ -1,11 +1,11 @@
 // const wordBank = require("./word-bank.json");
 const prompt = require("readline-sync");
-const wordBankTest = ["monkey", "cat"];
+const wordBankTest = ["kitten", "coat"];
 
 //declare rounds here
   let answerArray = [];
-  let numberOfGuesses = 6;
-  let guessesLeft = [];
+  let correctLetters = [];
+  let guessesLeft = 6;
   let guessedLetters = []; 
 
   //getting a word
@@ -18,10 +18,37 @@ const wordBankTest = ["monkey", "cat"];
     for (let i = 0; i < splitWord.length; i++) {
      hiddenAnswer[i] = "_";
     }
+    
 
 console.log("\nWelcome to Hangman!\nPress ctrl+c to stop\n");
 
+
+function gameState(){
+  while (guessesLeft > 6) {
+    console.log(`you have ${guessesLeft}`);
+  } if (guessesLeft === 0) {
+    console.log('game over'); 
+  }
+}
 //GUESS SECTION, prompt and evaluate 
+
+
+function evaluateGuess(guess) {
+  for (let j = 0; j < randomWord.length; j++) {
+    if (guess !== randomWord[j]) {
+      console.log("Wrong"); 
+      guessesLeft--; 
+    }
+  for (let j = 0; j < randomWord.length; j++) { 
+  } if (guess === randomWord[j]) {
+      console.log("Correct!");
+    //hiddenAnswer.push(guess[j]); 
+  }
+  }
+  if (guess.length !== 1 || !/^[a-z]$/.test(guess)) {
+    console.log('Sorry, but you can only guess single letters (a-z)!');
+  } 
+} 
 
 while (remainingLetters > 0) {
   console.log("Here is a word: " + hiddenAnswer);
@@ -29,35 +56,6 @@ while (remainingLetters > 0) {
   evaluateGuess(guess);
 }
 
-////does the guess validation go in the while loop or as a separate function? 
 
-//function onlyLetters (input){ 
-// if (/[a-zA-Z]/.test(guess)) {
-// return false; 
-// console.log("This is NOT a letter")
-//  }
-
-const evaluateGuess = (guess) => { 
-if (guess === null) {
-  console.log("Please enter a letter")
-  } else { 
-  if (guess.length !== 1) {
-   console.log("Please enter a single letter.");
-  } else { 
-  if (correctLetters.includes(guess)) {
-  console.log("Letter has already been added, please guess a new letter.");
-  } 
-}
-  }
-}
-
-//a correct letter guess, push to the hidden array
-splitWord.forEach((letter, position) => {
-
-if (guess === letter) {
-  console.log("found", position); 
-  hiddenAnswer[position] = guess;
-} 
-console.log(hiddenAnswer)
-})
+gameState();
 
